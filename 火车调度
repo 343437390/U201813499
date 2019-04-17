@@ -1,0 +1,54 @@
+实验报告
+一、	需求分析
+1，假设停在铁路调度站入口处的车厢序列的编号依次为1，2，3…n。设计一个程序，求出所有可能由此输出的长度为n的车厢序列。
+2、测试数据：
+2   2种
+3   6种
+4   24种
+二、	详细设计
+#include <stdio.h>
+#include <stdlib.h>
+#define n 3
+typedef int elementtype;
+struct stack{
+elementtype data[100];
+int top;
+};
+
+void disp(int i,elementtype m,struct stack s)
+{
+    s.data[++s.top]=i;
+    int j=0,a;
+    while(j<n)
+    {
+        a=0;
+        j++;
+        for(int k=0;k<=s.top;k++)
+        {
+            if(j==s.data[k]) {a++;}
+        }
+        if(a>0) continue;
+        if(m>1) disp(j,m-1,s);
+    }
+    if(s.top==n-1)
+    {
+       while(s.top>-1)
+    {
+        printf("%d\t",s.data[s.top--]);
+    }
+    printf("\n");
+  }
+}
+
+int main()
+{
+    int i;
+    for(i=1;i<=n;i++)
+    {
+        struct stack s;
+        s.top=-1;
+        disp(i,n,s);
+    }
+}
+三、	调试分析
+因为这个程序比较难，开始的时候并没有思路，于是和同学借鉴了思路才弄出来，这个程序还是比较难，还没还是需要多温习一下，不同的算法会导致速度不一样，这种算法虽然比较难理解，但比较快。
